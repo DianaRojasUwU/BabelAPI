@@ -16,6 +16,7 @@ namespace BabelAPI
             builder.Services.AddScoped<DRol>();
             builder.Services.AddScoped<DLibro>();
             builder.Services.AddScoped<DCategoria>();
+            builder.Services.AddScoped<DEventoNoticia>();
 
             builder.Services.AddControllers();
 

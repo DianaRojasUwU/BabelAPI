@@ -5,8 +5,8 @@ namespace BabelAPI.Models
     public class MRol
     {
         [Key]
-        public int ID { get; set; }
-        public string Nombre { get; set; }
+        public int rolID { get; set; }
+        public string rolNombre { get; set; }
     }
 
 }

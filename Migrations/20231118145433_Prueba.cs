@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BabelAPI.Migrations
 {
-    public partial class prueba : Migration
+    public partial class Prueba : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,13 +45,13 @@ namespace BabelAPI.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    rolID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    rolNombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.ID);
+                    table.PrimaryKey("PK_Roles", x => x.rolID);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,7 +98,7 @@ namespace BabelAPI.Migrations
                         name: "FK_Usuarios_Roles_RolID",
                         column: x => x.RolID,
                         principalTable: "Roles",
-                        principalColumn: "ID",
+                        principalColumn: "rolID",
                         onDelete: ReferentialAction.Cascade);
                 });
 

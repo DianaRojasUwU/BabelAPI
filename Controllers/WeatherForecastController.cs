@@ -15,24 +15,5 @@ namespace BabelAPI.Controllers
             _dUsuario = dUsuario;
         }
 
-        [HttpGet("{id}", Name = "GetWeatherForecast")]
-        public async Task<ActionResult<MUsuario>> Get(int id)
-        {
-            try
-            {
-                var usuario = await _dUsuario.MostrarUsuarios(id);
-
-                if (usuario == null)
-                {
-                    return NotFound();
-                }
-
-                return usuario;
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Error interno del servidor");
-            }
-        }
     }
 }

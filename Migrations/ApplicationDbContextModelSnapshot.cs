@@ -123,17 +123,17 @@ namespace BabelAPI.Migrations
 
             modelBuilder.Entity("BabelAPI.Models.MRol", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("rolID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("rolID"), 1L, 1);
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("rolNombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("rolID");
 
                     b.ToTable("Roles");
                 });

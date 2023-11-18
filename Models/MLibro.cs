@@ -8,8 +8,7 @@ namespace BabelAPI.Models
         [Key]
         public int ID { get; set; }
         public string Titulo { get; set; }
-        public string Autor { get; set; }
-        public string Categoria { get; set; }
+        public string Autor { get; set; }        
         public string Descripcion { get; set; }
         public decimal Precio { get; set; }
         public int Stock { get; set; }
@@ -17,6 +16,6 @@ namespace BabelAPI.Models
         // Relación con Categorías
         [ForeignKey("Categoria")]
         public int CategoriaID { get; set; }
-        public MCategoria Categoria1 { get; set; }
+        public MCategoria Categoria { get; set; }
     }
 }

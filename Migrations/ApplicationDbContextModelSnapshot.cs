@@ -90,13 +90,6 @@ namespace BabelAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Categoria")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Categoria1ID")
-                        .HasColumnType("int");
-
                     b.Property<int>("CategoriaID")
                         .HasColumnType("int");
 
@@ -116,7 +109,7 @@ namespace BabelAPI.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Categoria1ID");
+                    b.HasIndex("CategoriaID");
 
                     b.ToTable("Libros");
                 });
@@ -170,13 +163,13 @@ namespace BabelAPI.Migrations
 
             modelBuilder.Entity("BabelAPI.Models.MLibro", b =>
                 {
-                    b.HasOne("BabelAPI.Models.MCategoria", "Categoria1")
+                    b.HasOne("BabelAPI.Models.MCategoria", "Categoria")
                         .WithMany()
-                        .HasForeignKey("Categoria1ID")
+                        .HasForeignKey("CategoriaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Categoria1");
+                    b.Navigation("Categoria");
                 });
 
             modelBuilder.Entity("BabelAPI.Models.MUsuario", b =>

@@ -13,6 +13,10 @@ namespace BabelAPI
 
             // Add services to the container.
             builder.Services.AddScoped<DUsuario>();
+            builder.Services.AddScoped<DRol>();
+            builder.Services.AddScoped<DLibro>();
+            builder.Services.AddScoped<DCategoria>();
+
             builder.Services.AddControllers();
 
             // Configuración del contexto de la base de datos

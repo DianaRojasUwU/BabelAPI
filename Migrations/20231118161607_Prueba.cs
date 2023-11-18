@@ -62,19 +62,17 @@ namespace BabelAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Autor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Categoria = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
-                    CategoriaID = table.Column<int>(type: "int", nullable: false),
-                    Categoria1ID = table.Column<int>(type: "int", nullable: false)
+                    CategoriaID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Libros", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Libros_Categorias_Categoria1ID",
-                        column: x => x.Categoria1ID,
+                        name: "FK_Libros_Categorias_CategoriaID",
+                        column: x => x.CategoriaID,
                         principalTable: "Categorias",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -103,9 +101,9 @@ namespace BabelAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Libros_Categoria1ID",
+                name: "IX_Libros_CategoriaID",
                 table: "Libros",
-                column: "Categoria1ID");
+                column: "CategoriaID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_RolID",

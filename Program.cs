@@ -24,6 +24,17 @@ namespace BabelAPI
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("masterconnection")));
 
+            // Configuración de CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -38,9 +49,16 @@ namespace BabelAPI
             }
 
             app.UseHttpsRedirection();
+
+            // Habilitar CORS
+            app.UseCors();
+
             app.UseAuthorization();
 
             app.MapControllers();
+
+            // Agrega tus rutas personalizadas aquí
+            app.MapGet("/", () => "¡Hola Mundo!"); // Ejemplo de una ruta personalizada
 
             app.Run();
         }

@@ -5,7 +5,7 @@ namespace BabelAPI.Models
 {
     public class MUsuario
     {
-        [Key]
+        [Key] //Para obtener y establecer que el siguiente parametro sera el PK 
         public int ID { get; set; }
         public string Nombre { get; set; }
         public string CorreoElectronico { get; set; }

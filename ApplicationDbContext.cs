@@ -11,7 +11,7 @@ namespace BabelAPI.Data
             : base(options)
         {
         }
-
+        //Llama a los modelos para realizar la migración
         public DbSet<MUsuario> Usuarios { get; set; }
         public DbSet<MRol> Roles{ get; set; }
         public DbSet<MLibro> Libros{ get; set; }

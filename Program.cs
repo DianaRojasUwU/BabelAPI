@@ -1,7 +1,6 @@
 using BabelAPI.Data;
 using BabelAPI.Datos;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace BabelAPI
 {
@@ -9,22 +8,24 @@ namespace BabelAPI
     {
         public static void Main(string[] args)
         {
+            // Crea un constructor de aplicaciones web
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddScoped<DUsuario>();
-            builder.Services.AddScoped<DRol>();
-            builder.Services.AddScoped<DLibro>();
-            builder.Services.AddScoped<DCategoria>();
-            builder.Services.AddScoped<DEventoNoticia>();
+            // Añade servicios al contenedor de servicios.
+            builder.Services.AddScoped<DUsuario>();     // Servicio para manejar operaciones relacionadas con usuarios
+            builder.Services.AddScoped<DRol>();         // Servicio para manejar operaciones relacionadas con roles
+            builder.Services.AddScoped<DLibro>();       // Servicio para manejar operaciones relacionadas con libros
+            builder.Services.AddScoped<DCategoria>();   // Servicio para manejar operaciones relacionadas con categorías
+            builder.Services.AddScoped<DEventoNoticia>();// Servicio para manejar operaciones relacionadas con eventos y noticias
 
+            // Añade los controladores dentro de la solución
             builder.Services.AddControllers();
 
-            // Configuración del contexto de la base de datos
+            // Configuración del contexto de la base de datos usando Entity Framework Core
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("masterconnection")));
 
-            // Configuración de CORS
+            // Configuración de CORS (Cross-Origin Resource Sharing)
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
@@ -35,30 +36,28 @@ namespace BabelAPI
                 });
             });
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Configuración de Swagger/OpenAPI para documentar y explorar la API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Construye la aplicación
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configura el pipeline de solicitud HTTP.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwagger();    // Habilita Swagger en entorno de desarrollo
+                app.UseSwaggerUI();  // Configura la interfaz de usuario de Swagger
             }
 
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection(); // Redirige automáticamente las solicitudes HTTP a HTTPS
 
-            // Habilitar CORS
+            // Habilita CORS para permitir solicitudes desde cualquier origen
             app.UseCors();
 
-            app.UseAuthorization();
+            app.UseAuthorization(); // Habilita la autorización
 
-            app.MapControllers();
-
-            // Agrega tus rutas personalizadas aquí
-            app.MapGet("/", () => "¡Hola Mundo!"); // Ejemplo de una ruta personalizada
+            app.MapControllers();    // Mapea los controladores para manejar las solicitudes HTTP
 
             app.Run();
         }

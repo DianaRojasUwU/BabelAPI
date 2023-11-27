@@ -1,26 +1,24 @@
-﻿using BabelAPI.Datos;
+﻿using BabelAPI.Datos; 
 using BabelAPI.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
-using System.Data;
+using Microsoft.AspNetCore.Mvc; 
 
-namespace BabelAPI.Controllers
+namespace BabelAPI.Controllers 
 {
-    [ApiController]
-    [Route("api/usuarios")]
+    [ApiController] // Atributo que indica que esta clase es un controlador de API
+    [Route("api/usuarios")] // Ruta base para las API en este controlador
     public class UsuarioController : ControllerBase
     {
-        private readonly DUsuario _funcion;
-        private readonly ILogger<UsuarioController> _logger;  // Agrega esta línea
+        private readonly DUsuario _funcion; // Instancia de la clase de datos para usuarios
+        private readonly ILogger<UsuarioController> _logger; // Logger para registrar mensajes
 
+        // Constructor que recibe las dependencias necesarias
         public UsuarioController(DUsuario funcion, ILogger<UsuarioController> logger)
         {
             _funcion = funcion;
             _logger = logger;
         }
-        
-        //Obtener usuario por ID 
+
+        // Método para obtener un usuario por su ID (HTTP GET)
         [HttpGet("{id}")]
         public async Task<ActionResult<MUsuario>> Get(int id)
         {
@@ -28,35 +26,38 @@ namespace BabelAPI.Controllers
 
             if (usuario == null)
             {
-                return NotFound();
+                return NotFound(); // Retorna un código de estado 404 si el usuario no existe
             }
 
-            return usuario;
+            return usuario; // Retorna el usuario obtenido
         }
 
-        //Obtener usuarios
+        // Método para obtener todos los usuarios (HTTP GET)
         [HttpGet]
         public async Task<ActionResult<List<MUsuario>>> Get()
         {
             try
             {
+                // Intenta obtener todos los usuarios a través de la instancia de DUsuario
                 var usuarios = await _funcion.MostrarUsuarios();
 
-                return usuarios;
+                return usuarios; // Retorna la lista de usuarios obtenidos
             }
             catch (Exception ex)
             {
+                // Log del error y retorno de un código de estado 500 en caso de error
                 _logger.LogError($"Error al obtener todos los usuarios: {ex.Message}");
                 return StatusCode(500, "Error interno del servidor");
             }
         }
 
-        //Insertar usuario
+        // Método para insertar un nuevo usuario (HTTP POST)
         [HttpPost]
         public async Task<ActionResult<int>> InsertarUsuario([FromBody] MUsuario nuevoUsuario)
         {
             try
             {
+                // Intenta insertar un nuevo usuario a través de la instancia de DUsuario
                 var nuevoUsuarioID = await _funcion.InsertarUsuario(
                     nuevoUsuario.Nombre,
                     nuevoUsuario.CorreoElectronico,
@@ -64,66 +65,71 @@ namespace BabelAPI.Controllers
                     nuevoUsuario.RolID
                 );
 
-                return nuevoUsuarioID;
+                return nuevoUsuarioID; // Retorna el ID del nuevo usuario insertado
             }
             catch (Exception ex)
             {
+                // Log del error y retorno de un código de estado 500 en caso de error
                 _logger.LogError($"Error al insertar usuario: {ex.Message}");
                 return StatusCode(500, "Error interno del servidor");
             }
         }
-        
-        //Editar por ID
+
+        // Método para actualizar un usuario por su ID (HTTP PUT)
         [HttpPut("{id}")]
         public async Task<IActionResult> ActualizarUsuario(int id, [FromBody] MUsuario usuarioActualizado)
         {
             try
             {
+                // Intenta obtener el usuario existente por su ID a través de la instancia de DUsuario
                 var usuarioExistente = await _funcion.MostrarUsuariosbyID(id);
 
                 if (usuarioExistente == null)
                 {
-                    return NotFound();
+                    return NotFound(); // Retorna un código de estado 404 si el usuario no existe
                 }
 
-                // Actualizar las propiedades necesarias
+                // Actualiza las propiedades necesarias
                 usuarioExistente.Nombre = usuarioActualizado.Nombre;
                 usuarioExistente.CorreoElectronico = usuarioActualizado.CorreoElectronico;
                 usuarioExistente.Contrasena = usuarioActualizado.Contrasena;
                 usuarioExistente.RolID = usuarioActualizado.RolID;
 
-                // Llamar al método de actualización en DUsuario
+                // Llama al método de actualización en DUsuario
                 await _funcion.ActualizarUsuario(usuarioExistente);
 
                 return NoContent(); // Indica que la actualización fue exitosa
             }
             catch (Exception ex)
             {
+                // Log del error y retorno de un código de estado 500 en caso de error
                 _logger.LogError($"Error al actualizar usuario: {ex.Message}");
                 return StatusCode(500, "Error interno del servidor");
             }
         }
-        
-        //Eliminar por ID
+
+        // Método para eliminar un usuario por su ID (HTTP DELETE)
         [HttpDelete("{id}")]
         public async Task<IActionResult> EliminarUsuario(int id)
         {
             try
             {
+                // Intenta obtener el usuario existente por su ID a través de la instancia de DUsuario
                 var usuarioExistente = await _funcion.MostrarUsuariosbyID(id);
 
                 if (usuarioExistente == null)
                 {
-                    return NotFound();
+                    return NotFound(); // Retorna un código de estado 404 si el usuario no existe
                 }
 
-                // Llamar al método de eliminación en DUsuario
+                // Llama al método de eliminación en DUsuario
                 await _funcion.EliminarUsuario(id);
 
                 return NoContent(); // Indica que la eliminación fue exitosa
             }
             catch (Exception ex)
             {
+                // Log del error y retorno de un código de estado 500 en caso de error
                 _logger.LogError($"Error al eliminar usuario: {ex.Message}");
                 return StatusCode(500, "Error interno del servidor");
             }

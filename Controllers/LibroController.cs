@@ -71,6 +71,7 @@ namespace BabelAPI.Controllers
                     nuevoLibro.Titulo,
                     nuevoLibro.Autor,
                     nuevoLibro.Descripcion,
+                    nuevoLibro.Imagen,
                     nuevoLibro.Precio,
                     nuevoLibro.Stock,
                     nuevoLibro.CategoriaID
@@ -104,6 +105,7 @@ namespace BabelAPI.Controllers
                 libroExistente.Titulo = libroActualizado.Titulo;
                 libroExistente.Autor = libroActualizado.Autor;
                 libroExistente.Descripcion = libroActualizado.Descripcion;
+                libroExistente.Imagen = libroActualizado.Imagen;
                 libroExistente.Precio = libroActualizado.Precio;
                 libroExistente.Stock = libroActualizado.Stock;
                 libroExistente.CategoriaID = libroActualizado.CategoriaID;

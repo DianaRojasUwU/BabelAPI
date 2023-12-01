@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BabelAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231118161607_Prueba")]
-    partial class Prueba
+    [Migration("20231201155231_prueba")]
+    partial class prueba
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,10 @@ namespace BabelAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Imagen")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

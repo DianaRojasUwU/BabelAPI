@@ -34,6 +34,7 @@ namespace BabelAPI.Datos
                                 Titulo = (string)reader["Titulo"],
                                 Autor = (string)reader["Autor"],
                                 Descripcion = (string)reader["Descripcion"],
+                                Imagen = (string)reader["Imagen"],
                                 Precio = (decimal)reader["Precio"],
                                 Stock = (int)reader["Stock"],
                                 CategoriaID = (int)reader["CategoriaID"],
@@ -78,6 +79,7 @@ namespace BabelAPI.Datos
                                 Titulo = (string)reader["Titulo"],
                                 Autor = (string)reader["Autor"],
                                 Descripcion = (string)reader["Descripcion"],
+                                Imagen = (string)reader["Imagen"],
                                 Precio = (decimal)reader["Precio"],
                                 Stock = (int)reader["Stock"],
                                 CategoriaID = (int)reader["CategoriaID"],
@@ -96,7 +98,7 @@ namespace BabelAPI.Datos
         }
 
         // Método para insertar un nuevo libro (almacenado en un procedimiento almacenado)
-        public async Task<int> InsertarLibro(string titulo, string autor, string descripcion, decimal precio, int stock, int categoriaID)
+        public async Task<int> InsertarLibro(string titulo, string autor, string descripcion, string imagen, decimal precio, int stock, int categoriaID)
         {
             using (var sql = new SqlConnection(cn.ConnectionString()))
             {
@@ -108,6 +110,7 @@ namespace BabelAPI.Datos
                     cmd.Parameters.Add(new SqlParameter("@Titulo", SqlDbType.NVarChar) { Value = titulo });
                     cmd.Parameters.Add(new SqlParameter("@Autor", SqlDbType.NVarChar) { Value = autor });
                     cmd.Parameters.Add(new SqlParameter("@Descripcion", SqlDbType.NVarChar) { Value = descripcion });
+                    cmd.Parameters.Add(new SqlParameter("@Imagen", SqlDbType.NVarChar) { Value = imagen});
                     cmd.Parameters.Add(new SqlParameter("@Precio", SqlDbType.Decimal) { Value = precio });
                     cmd.Parameters.Add(new SqlParameter("@Stock", SqlDbType.Int) { Value = stock });
                     cmd.Parameters.Add(new SqlParameter("@CategoriaID", SqlDbType.Int) { Value = categoriaID });
@@ -133,6 +136,7 @@ namespace BabelAPI.Datos
                     cmd.Parameters.Add(new SqlParameter("@Titulo", SqlDbType.NVarChar) { Value = libro.Titulo });
                     cmd.Parameters.Add(new SqlParameter("@Autor", SqlDbType.NVarChar) { Value = libro.Autor });
                     cmd.Parameters.Add(new SqlParameter("@Descripcion", SqlDbType.NVarChar) { Value = libro.Descripcion });
+                    cmd.Parameters.Add(new SqlParameter("@Imagen", SqlDbType.NVarChar) { Value = libro.Imagen });
                     cmd.Parameters.Add(new SqlParameter("@Precio", SqlDbType.Decimal) { Value = libro.Precio });
                     cmd.Parameters.Add(new SqlParameter("@Stock", SqlDbType.Int) { Value = libro.Stock });
                     cmd.Parameters.Add(new SqlParameter("@CategoriaID", SqlDbType.Int) { Value = libro.CategoriaID });

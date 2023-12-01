@@ -23,6 +23,7 @@ namespace BabelAPI.Controllers
         public async Task<ActionResult<List<MEventoNoticia>>> ObtenerTodosLosEventosNoticias()
         {
             try
+                //debuger
             {
                 // Intenta obtener todos los eventos y noticias a través de la instancia de DEventoNoticia
                 var eventosNoticias = await _eventoNoticiaService.ObtenerTodosLosEventosNoticias();
